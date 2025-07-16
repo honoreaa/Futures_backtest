@@ -8,13 +8,8 @@ This project backtests a quantitative trading strategy based on "Golden Cross" a
 
 ## Methodology
 
-1. **Data Acquisition:**
 
-   * Historical stock data from `yfinance` (`auto_adjust=True`).
-
-   * `Close` prices used; `NaN` values removed.
-
-2. **Indicator and Signal Generation:**
+Indicator and Signal Generation:
 
    * **Simple Moving Averages (SMAs):** `SMA50` and `SMA200` computed.
 
@@ -22,7 +17,7 @@ This project backtests a quantitative trading strategy based on "Golden Cross" a
 
    * **Position Tracking:** `Position` column identifies buy (`1`) and sell (`-1`) points from `Signal` changes (`.diff()`).
 
-3. **Backtesting Simulation:**
+Initializations:
 
    * `initial_cash` (default $10,000) simulates portfolio.
 
@@ -34,7 +29,7 @@ This project backtests a quantitative trading strategy based on "Golden Cross" a
 
    * `Buy_Signal` and `Sell_Signal` flags for visualization.
 
-4. **Performance Metrics Calculation:**
+Performance Metrics Calculation:
 
    * **Sharpe Ratio:** Risk-adjusted return.
 
@@ -44,11 +39,6 @@ This project backtests a quantitative trading strategy based on "Golden Cross" a
 
    * **Final Portfolio Value:** Portfolio value at backtest end.
 
-5. **Visualization:**
-
-   * **Static Plots (`matplotlib`):** Price, SMAs, signals, and portfolio performance.
-
-   * **Interactive Plot (`plotly`):** Combined interactive chart of price, SMAs, signals, and portfolio value.
 
 ## Mathematical Concepts
 
@@ -57,8 +47,7 @@ This project backtests a quantitative trading strategy based on "Golden Cross" a
 The Simple Moving Average (SMA) for a given period $n$ is calculated as the sum of the closing prices over that period, divided by $n$:
 
 $$
-\text{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} \text{Price}(t-i)
-$$
+\mathrm{SMA}_n(t) = \frac{1}{n} \sum_{i=0}^{n-1} \mathrm{Price}(t - i)$$
 
 Where:
 
@@ -118,45 +107,39 @@ Backtesting results for AAPL (2019-01-01 to 2025-05-20, SMA50/SMA200):
 
 ### Performance Metrics:
 
+### Performance Metrics:
+
 Sharpe Ratio: 0.6
 Max Drawdown: -0.31
 Annualized Volatility: 0.26
 Final Portfolio Value: 22037.22
 
+Portfolio growth: 120.37%
+
 ## Visualizations:
 
 Plots show stock price, SMAs, buy/sell signals, and portfolio performance.
 
-*(Screenshot: `Screenshot 2025-07-16 at 11.30.17 AM.jpg`)*
+<img width="1458" height="870" alt="Screenshot 2025-07-16 at 11 36 51 AM" src="https://github.com/user-attachments/assets/ecd8f69f-5029-4a24-bdc7-af01cc774463" />
+
 
 ### Analysis:
 
-* **Sharpe Ratio (0.6):** Suboptimal risk-adjusted returns; insufficient compensation for risk.
+* **Sharpe Ratio (0.6):** Suboptimal risk-adjusted returns; insufficient compensation for risk. This is mostly due to the simplicity of the strategy. Golden Cross is strong but not as the only layer of confluence being utilized
 
-* **Max Drawdown (-0.31):** Significant 31% peak-to-trough decline, indicating substantial downside risk.
+* **Max Drawdown (-0.31):** Significant 31% peak-to-trough decline.
 
 * **Final Portfolio Value ($22,037.22):** Initial $10,000 capital more than doubled, but this return must be weighed against risk and a buy-and-hold benchmark.
 
 ### Future Improvements:
 
-To enhance Sharpe Ratio and reduce drawdown:
-
-1. **Strategy Refinement:**
+To enhance Sharpe Ratio and reduce drawdown I can do:
 
    * **Parameter Optimization:** Test SMA window combinations for optimal Sharpe Ratios.
 
-   * **Additional Indicators:** Integrate other technical indicators (RSI, MACD, Volume, Bollinger Bands) for signal confirmation and false positive reduction.
+   * **Additional Indicators:** Integrate other technical indicators (such as RSI, MACD, Volume, Bollinger Bands) for signal confirmation and false positive reduction.
 
    * **Stop-Loss/Take-Profit:** Implement dynamic mechanisms for risk management and profit locking.
 
    * **Market Regime Filtering:** Adapt strategy based on market trends.
 
-2. **Realistic Backtesting:**
-
-   * **Transaction Costs:** Incorporate slippage and commission fees for accurate net returns.
-
-   * **Out-of-Sample Testing:** Optimize on "in-sample" data, test on "out-of-sample" data to prevent overfitting.
-
-3. **Risk Management:**
-
-   * **Position Sizing:** Implement sophisticated techniques (e.g., fixed percentage risk, volatility-adjusted sizing) to control capital risked per trade.
